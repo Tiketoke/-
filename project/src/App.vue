@@ -13,7 +13,7 @@
           商家
         </router-link>
       </div>
-    <router-view></router-view>
+    <router-view :seller="seller" keep-alive></router-view>
   </div>
 </template>
 
@@ -24,7 +24,7 @@
   export default {
     data() {
       return {
-        seller :{}
+        seller :{},
       };
     },
     methods: {
@@ -37,7 +37,6 @@
         res =res.data;
         if(res.ret){
           this.seller =res.seller;
-          console.log(this.seller)
         }
       }
     },

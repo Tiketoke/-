@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        target: 'http://localhost:8080', //前端服务器端口  本地后台端口 http://localhost:80   外网域名或者IP地址
+        target: 'http://localhost:8081', //前端服务器端口  本地后台端口 http://localhost:80   外网域名或者IP地址
         pathRewrite:{   //后台联调  删除此项
           '^/api': '/static/mock'
         }
@@ -21,7 +21,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
