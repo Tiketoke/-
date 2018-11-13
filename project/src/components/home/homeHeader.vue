@@ -213,15 +213,16 @@
       overflow: auto
       transition: all 0.5s
       backdrop-filter: blur(10px)
-      &.fade-transition
-        opacity: 1
-        background: rgba(7, 17, 27, 0.8)
+      opacity: 1
+      background: rgba(7, 17, 27, 0.8)
       &.fade-enter, &.fade-leave
         opacity: 0
         background: rgba(7, 17, 27, 0)
       .detail-wrapper
         width: 100%
         min-height: 100%
+      .clearfix
+        display inline-block
         .detail-main
           margin-top: 64px
           padding-bottom: 64px

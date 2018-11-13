@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import './common/stylus/icon.styl'
+import './common/stylus/mixin.styl'
 
 Vue.config.productionTip = false
 
