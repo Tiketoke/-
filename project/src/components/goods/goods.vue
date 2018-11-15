@@ -105,7 +105,6 @@
       },
       methods:{
         cartAdd(target){
-
           this.$refs.shopcart.drop(target)
         },
         selectFood(food){

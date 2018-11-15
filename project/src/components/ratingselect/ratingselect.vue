@@ -1,9 +1,12 @@
 <template>
   <div class="ratingselect">
     <div class="rating-type border-1px">
-      <span>{{desc.all}}</span>
-      <span>{{desc.positive}}</span>
-      <span>{{desc.negative}}</span>
+      <span class="block positive" @click="select(2)"  :class="{'active':selectType===2}">{{desc.all}}<span
+        class="count">{{ratings.length}}</span></span>
+      <span class="block positive" @click="select(0)"  :class="{'active':selectType===0}">{{desc.positive}}<span
+        class="count">{{ratings.length}}</span></span>
+      <span class="block negative" @click="select(1)"  :class="{'active':selectType===1}">{{desc.negative}}<span
+        class="count">{{ratings.length}}</span></span>
     </div>
     <div class="switch">
       <span class="icon-check_circle"></span>
@@ -15,19 +18,19 @@
 <script>
   const POSITIVE = 0;
   const NEGATIVE = 1;
-  const ALL = 2;
     export default {
         name: "ratingselect",
+        data (){
+          return {
+            selectType:2
+          }
+        },
         props :{
           ratings:{
             type:Array,
             default(){
               return [];
             }
-          },
-          selectType: {
-            type: Number,
-            default: ALL
           },
           onlyContent: {
             type: Boolean,
@@ -42,6 +45,13 @@
                 negative: '不满意'
               };
             }
+          }
+        },
+        methods:{
+          select(type) {
+            console.log(type);
+            this.selectType = type;
+            this.$emit('ratlect', type);
           }
         }
 
@@ -64,11 +74,6 @@
         border-radius: 1px
         font-size: 12px
         color: rgb(77, 85, 93)
-        &.active
-          color: #fff
-        .count
-          margin-left: 2px
-          font-size: 8px
         &.positive
           background: rgba(0, 160, 220, 0.2)
           &.active
@@ -77,6 +82,14 @@
           background: rgba(77, 85, 93, 0.2)
           &.active
             background: rgb(77, 85, 93)
+        &.active
+          color: #fff
+          .count
+            margin-left: 2px
+            font-size: 8px
+
+
+
     .switch
       padding: 12px 18px
       line-height: 24px
