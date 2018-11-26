@@ -1,5 +1,5 @@
 <template>
-    <div class="ratings">
+    <div class="ratings" ref="ratings">
       <div class="ratings-content">
         <div class="overview">
           <div class="overview-left">
@@ -24,13 +24,45 @@
             </div>
           </div>
         </div>
+        <split></split>
+        <ratingselect :select-type="selectType" :only-content="onlyContent"
+        :ratings="ratings" @toggle="togls" @ratlect="retcts"></ratingselect>
+        <div class="rating-wrapper">
+          <ul>
+            <li v-for="rating in ratings" v-show="needShow(rating.rateType, rating.text)" class="rating-item">
+              <div class="avatar">
+                <img width="28" height="28" :src="rating.avatar">
+              </div>
+              <div class="content">
+                <h1 class="name">{{rating.username}}</h1>
+                <div class="star-wrapper">
+                  <star :size="24" :score="rating.score"></star>
+                  <span class="delivery" v-show="rating.deliveryTime">{{rating.deliveryTime}}</span>
+                </div>
+                <p class="text">{{rating.text}}</p>
+                <div class="recommend" v-show="rating.recommend && rating.recommend.length">
+                  <span class="icon-thumb_up"></span>
+                  <span class="item" v-for="item in rating.recommend">{{item}}</span>
+                </div>
+                <div class="time">
+                  {{rating.rateTime | formatDate}}
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
-
+  import {formatDate} from '@/common/js/date';
   import star from '@/components/star/star';
+  import ratingselect from '@/components/ratingselect/ratingselect';
+  import split from '@/components/split/split';
+  import BScroll from 'better-scroll';
+  import axios from 'axios';
+  const ALL =2;
     export default {
         name: "ratings",
         props: {
@@ -38,8 +70,65 @@
             type: Object
           }
         },
+      data() {
+        return {
+          ratings:[],
+          showFlag: false,
+          selectType:ALL,
+          onlyContent: true,
+        };
+      },
+      methods: {
+        retcts(type){
+          console.log(type);
+          this.selectType = type;
+          this.$nextTick(() => {
+            this.scroll.refresh();
+          });
+        },
+        needShow(type, text) {
+          if (this.onlyContent && !text) {
+            return false;
+          }
+          if (this.selectType === ALL) {
+            return true;
+          } else {
+            return type === this.selectType;
+          }
+        },
+
+        togls(onlyContent) {
+          this.onlyContent = onlyContent;
+
+          this.$nextTick(() => {
+            this.scroll.refresh();
+          });
+        }
+
+      },
+      filters:{
+        formatDate(time){
+          let  date =new Date(time);
+          return formatDate(date, 'yyyy-MM-dd hh:mm');
+        }
+      },
+      created(){
+        axios.get('/api/data.json').then((res) => {
+          res = res.data;
+          if(res.ret){
+            this.ratings =res.ratings;
+            this.$nextTick(() => {
+              this.scroll = new BScroll(this.$refs.ratings, {
+                click: true
+              });
+            });
+          }
+        });
+      },
       components:{
-        star
+        star,
+        ratingselect,
+        split
       }
     }
 </script>

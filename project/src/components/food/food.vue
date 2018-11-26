@@ -32,7 +32,7 @@
       <div class="rating">
         <h1 class="title">商品评价</h1>
         <ratingselect  :only-content="onlyContent" :desc="desc"
-                      :ratings="food.ratings"></ratingselect>
+                      :ratings="food.ratings" @ratlect="retcts"  @toggle="togls"></ratingselect>
         <div class="rating-wrapper">
           <ul v-show="food.ratings && food.ratings.length">
 
@@ -73,6 +73,7 @@
           return {
             showFlag: false,
             onlyContent: true,
+            selectType: ALL,
             desc: {
               all: '全部',
               positive: '推荐',
@@ -81,8 +82,18 @@
           };
         },
         methods:{
-          ratlect(type){
-
+          retcts(type){
+            console.log(type);
+            this.selectType = type;
+            this.$nextTick(() => {
+              this.scroll.refresh();
+            });
+          },
+          togls(onlyContent) {
+            this.onlyContent = onlyContent;
+            this.$nextTick(() => {
+              this.scroll.refresh();
+            });
           },
             show(){
               this.showFlag = true;
