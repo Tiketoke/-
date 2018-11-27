@@ -19,12 +19,19 @@
 
 <script>
   import  homeHeader from '@/components/home/homeHeader'
+  import  {urlParse} from '@/common/js/util'
   import axios from 'axios'
   const ERR_OK =0;
   export default {
     data() {
       return {
-        seller :{},
+        seller :{
+          // id:(()=>{
+          //   let queryParm = urlParse();
+          //   console.log(queryParm);
+          //   return queryParm.id;
+          // })()
+        },
       };
     },
     methods: {
@@ -33,7 +40,6 @@
           .then(this.getCityInfoSucc)
       },
       getCityInfoSucc (res) {
-
         res =res.data;
         if(res.ret){
           this.seller =res.seller;

@@ -60,7 +60,6 @@
         methods:{
           select(type) {
             this.selectType = type;
-            console.log(type)
             this.$emit('ratlect', type);
           },
           toggleContent(event) {

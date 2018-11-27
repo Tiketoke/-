@@ -80,7 +80,6 @@
       },
       methods: {
         retcts(type){
-          console.log(type);
           this.selectType = type;
           this.$nextTick(() => {
             this.scroll.refresh();
@@ -96,15 +95,12 @@
             return type === this.selectType;
           }
         },
-
         togls(onlyContent) {
           this.onlyContent = onlyContent;
-
           this.$nextTick(() => {
             this.scroll.refresh();
           });
         }
-
       },
       filters:{
         formatDate(time){

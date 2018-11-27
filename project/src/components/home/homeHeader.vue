@@ -33,7 +33,9 @@
         <div class="detail-wrapper clearfix">
           <div class="detail-main">
             <h1 class="name">{{seller.name}}</h1>
-
+            <div class="star-wrapper">
+              <star :size="48" :score="seller.score"></star>
+            </div>
             <div class="title">
               <div class="line"></div>
               <div class="text">优惠信息</div>
@@ -289,7 +291,7 @@
         position: relative
         width: 32px
         height: 32px
-        margin: -64px auto 0 auto
+        margin: -55px auto 0 auto
         clear: both
         font-size: 32px
 </style>
